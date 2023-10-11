@@ -10,7 +10,16 @@ class GermanTranslatorTest {
     @Test
     void aPositiveTest() {
         GermanTranslator translator = new GermanTranslator();
-        String value = translator.translateNumber(0);
-        assertEquals(value, "null");
+        assertEquals(translator.translateNumber(1), "eins");
+        assertEquals(translator.translateNumber(10), "zehn");
+    }
+
+    @Test
+    void aNegativTest() {
+        GermanTranslator translator = new GermanTranslator();
+        assertThrows(IllegalArgumentException.class, () -> translator.translateNumber(0));
+        assertThrows(IllegalArgumentException.class, () -> translator.translateNumber(11));
+        assertThrows(IllegalArgumentException.class, () -> translator.translateNumber(-5));
+        assertThrows(IllegalArgumentException.class, () -> translator.translateNumber(90));
     }
 }

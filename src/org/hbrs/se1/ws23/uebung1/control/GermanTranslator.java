@@ -1,5 +1,7 @@
 package org.hbrs.se1.ws23.uebung1.control;
 
+import java.awt.image.IndexColorModel;
+
 public class GermanTranslator implements Translator {
 
 	public String date = "Okt/2023"; // Default-Wert
@@ -8,9 +10,12 @@ public class GermanTranslator implements Translator {
 	 * Methode zur Übersetzung einer Zahl in eine String-Repraesentation
 	 */
 	public String translateNumber( int number ) {
-		// [ihr Source Code aus Übung 1-2]
-
-		return "null";
+		String zahlen[] = {"eins","zwei","drei","vier","fünf","sechs","sieben","acht","neun","zehn"};
+		try {
+			return zahlen[number-1];
+		} catch (IndexOutOfBoundsException e) {
+			throw new IllegalArgumentException("„Übersetzung der Zahl " + number + " nicht möglich " + version);
+		}
 	}
 
 	/**
