@@ -17,9 +17,9 @@ class GermanTranslatorTest {
     @Test
     void aNegativTest() {
         GermanTranslator translator = new GermanTranslator();
-        assertThrows(IllegalArgumentException.class, () -> translator.translateNumber(0));
-        assertThrows(IllegalArgumentException.class, () -> translator.translateNumber(11));
         assertThrows(IllegalArgumentException.class, () -> translator.translateNumber(-5));
-        assertThrows(IllegalArgumentException.class, () -> translator.translateNumber(90));
+        assertThrows(IllegalArgumentException.class, () -> translator.translateNumber(11));
+        assertThrows(IllegalArgumentException.class, () -> translator.translateNumber(0));
+        assertThrows(IllegalArgumentException.class, () -> translator.translateNumber(50));
     }
 }
