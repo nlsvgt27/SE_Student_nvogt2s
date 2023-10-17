@@ -4,6 +4,8 @@
     a)  Man erstellt eine weiter Klasse "TranslatorFactory" in dem Package "control"
         und erstellt dort durch eine static Methode ein neues Obejekt der Klasse "GermanTranslator".
         Diese wird dann beim Aufruf der Methode zurückgegeben.
+        Da die Methode static ist, muss man nun kein Objekt der Klasse "TranslatorFactory"
+        erstellen, um diese in "Client" aufzurufen.
 
 
     b)  Anwendung des Factory Methode Pattern (Kapitel 6; [GoF])

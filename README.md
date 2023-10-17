@@ -1,9 +1,12 @@
-## GitHub-Seite der Veranstaltung SE-1 (Prof. Alda)
+# Info zu meinen Übungsabgabe Lösungen
 
-Auf dieser GitHub-Seite finden sie die Source-Codes aus den Übungen sowie Demo-Codes aus den Vorlesungen. Sie finden hier zudem einige nützliche Links für die Übungen.
-Die Seite ist noch im Aufbau und wird kontinuierlich überarbeitet.
+    Auf dieser GitHub-Seite finden sie die bearbeiteten Aufgaben in denselben Ordnern, wie auf 
+    Ihrer (Prof. Alda's) GitHub-Seite. Die Antworten zu den Aufgaben finden sie zusätzlich in 
+    einer *.md Datei in den jeweiligen Haupt-Ordnern (Nicht in den Test-Ordner)
+    Das Test-Programm befindet sich immer in dem Test Ordner der Github-Seite.
 
-(Hinweis: diese Seite ist im Aufbau)
+
+
 
 ### Hilfreiche Video-Tutorien:
 
