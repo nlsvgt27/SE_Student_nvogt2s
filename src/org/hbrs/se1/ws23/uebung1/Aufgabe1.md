@@ -12,8 +12,8 @@
 
 
     c)  Das Interface "Translator" muss damit eine Klasse außerhalb des Packages zugriff auf sie hat,
-    auf public umgestellt werden. Somit kann "Client" nun ein Objekt der Klasse "GermanTranslator
-    des Interfaces "Translator" erstellen.
+        auf public umgestellt werden. Somit kann "Client" nun ein Objekt der Klasse "GermanTranslator
+        des Interfaces "Translator" erstellen.
 ### 2)
     a)  Durch Erstellung eines String Arrays kann man die übersetzung Schleifen frei 
         und if-abfragen frei gestalten.
