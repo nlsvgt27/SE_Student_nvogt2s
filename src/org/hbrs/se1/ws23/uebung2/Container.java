@@ -21,7 +21,8 @@ public class Container {
   }
 
   public String deleteMember(Integer id) {
-
+    String ergebnis = "";
+    return ergebnis;
   }
 
 }
