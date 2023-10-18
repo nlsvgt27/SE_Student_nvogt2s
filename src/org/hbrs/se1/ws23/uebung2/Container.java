@@ -21,8 +21,20 @@ public class Container {
   }
 
   public String deleteMember(Integer id) {
-    String ergebnis = "";
-    return ergebnis;
+    for (int i = 0; i < list.size(); i++) {
+      if(list.get(i).getID().equals(id)) {
+        list.remove(i);
+        return "";
+      }
+    }
+
+    return "Es wurde kein Member mit der von Inhnen gesuchten ID gefunden, und konnte deshalb auch nicht gelöscht werden";
+  }
+
+  public void dumb() {
+    for (Member e: list) {
+      System.out.println(e.toString());
+    }
   }
 
 }
