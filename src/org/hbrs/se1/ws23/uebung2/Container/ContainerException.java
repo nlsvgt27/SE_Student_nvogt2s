@@ -1,4 +1,4 @@
-package org.hbrs.se1.ws23.uebung2;
+package org.hbrs.se1.ws23.uebung2.Container;
 
 public class ContainerException extends Exception {
 

@@ -1,8 +1,8 @@
-package org.hbrs.se1.ws23.uebung2;
+package org.hbrs.se1.ws23.uebung2.Container;
 
-import java.util.AbstractList;
+import org.hbrs.se1.ws23.uebung2.Member.Member;
+
 import java.util.ArrayList;
-import java.util.List;
 
 public class Container {
   ArrayList<Member> list = new ArrayList<>();
