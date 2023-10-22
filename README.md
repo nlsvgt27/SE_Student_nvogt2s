@@ -3,7 +3,8 @@
     Auf dieser GitHub-Seite finden sie die bearbeiteten Aufgaben in denselben Ordnern, wie auf 
     Ihrer (Prof. Alda's) GitHub-Seite. Die Antworten zu den Aufgaben finden sie zusätzlich in 
     einer *.md Datei in den jeweiligen Haupt-Ordnern (Nicht in den Test-Ordner)
-    Das Test-Programm befindet sich immer in dem Test Ordner der Github-Seite.
+    Das Test-Programm befindet sich auch in den selben Ordnern wie die Programme. 
+    (Außer der Test aus Uebung 1.1, diese ist noch in dem "test.org.***" Ordner zu finden)
 
 
 
