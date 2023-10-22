@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Objects;
+import java.util.Scanner;
 
 public class ContainerTest {
   Member member1;
@@ -24,7 +25,9 @@ public class ContainerTest {
   @Test
   void addPositivTest() throws ContainerException{
     container.addMember(member1);
+    assertEquals(container.size(), 1);
     container.addMember(member2);
+    assertEquals(container.size(), 2);
   }
   @Test
   void addNegativTest() throws ContainerException{
@@ -37,18 +40,24 @@ public class ContainerTest {
     container.addMember(member2);
     assertEquals(container.deleteMember(1001), "");
     assertEquals(container.size(), 1);
+    assertEquals(container.deleteMember(1002), "");
+    assertEquals(container.size(), 0);
   }
   @Test
   void deleteNegativTest() throws ContainerException{
     container.addMember(member1);
     container.addMember(member2);
+    assertEquals(container.size(), 2);
     assertEquals(container.deleteMember(1003), "Es wurde kein Member mit der von Inhnen gesuchten ID gefunden, und konnte deshalb auch nicht gelöscht werden");
     assertEquals(container.size(), 2);
   }
   @Test
-  void testedumb() throws ContainerException{
+  void testedumb() throws ContainerException {
     container.addMember(member1);
     container.addMember(member2);
     container.dumb();
+    //Siehe Konsole
+
+
   }
 }
