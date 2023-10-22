@@ -6,9 +6,6 @@ import org.hbrs.se1.ws23.uebung2.Member.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Objects;
-import java.util.Scanner;
-
 public class ContainerTest {
   Member member1;
   Member member2;
