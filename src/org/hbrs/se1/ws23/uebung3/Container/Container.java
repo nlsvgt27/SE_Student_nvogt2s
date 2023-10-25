@@ -60,17 +60,15 @@ public class Container {
 
   //Aufgabe 3.2 weiter
   public void store() throws PersistenceException {
-    try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("data.txt"))){
-      for (Member el : list)
-      out.writeObject(el);
-      out.writeUTF("\n");
+    try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("src\\org\\hbrs\\se1\\ws23\\uebung3\\data.txt"))){
+      out.writeObject(list);
     } catch (Exception e) {
       throw new PersistenceException(PersistenceException.ExceptionType.NO_FILE_FOUND, "Fehler beim abspeichern");
     }
   }
 
   public void load() throws PersistenceException {
-    try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("data.txt"))){
+    try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("src\\org\\hbrs\\se1\\ws23\\uebung3\\data.txt"))){
       list = (ArrayList<Member>) in.readObject();
     } catch (Exception e) {
       throw new PersistenceException(PersistenceException.ExceptionType.NO_FILE_FOUND, "Fehler beim abspeichern");
