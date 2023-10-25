@@ -9,8 +9,8 @@ import java.util.List;
 
 public class Container {
   ArrayList<Member> list;
-  PersistenceStrategy<Member> strategy;
   //Aufgabe 3.2
+  PersistenceStrategy<Member> strategy;
   //Erstellung eines Statischen Container Objekts in der Klasse selber
   private static Container container;
   private Container() {
@@ -49,12 +49,6 @@ public class Container {
     return "Es wurde kein Member mit der von Inhnen gesuchten ID gefunden, und konnte deshalb auch nicht gelöscht werden";
   }
 
-  public void dumb() {
-    for (Member e: list) {
-      System.out.println(e.toString());
-    }
-  }
-
   //Aufgabe 3.2 weiter
   public void store() throws PersistenceException {
     try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("src\\org\\hbrs\\se1\\ws23\\uebung3\\data.txt"))){
@@ -73,5 +67,9 @@ public class Container {
     } catch (Exception e) {
       throw new PersistenceException(PersistenceException.ExceptionType.NO_FILE_FOUND, "Fehler beim abspeichern");
     }
+  }
+
+  public List<Member> getCurrentList() {
+    return list;
   }
 }

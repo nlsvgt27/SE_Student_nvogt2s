@@ -1,4 +1,12 @@
 package org.hbrs.se1.ws23.uebung3.Container;
 
+import java.util.List;
+import org.hbrs.se1.ws23.uebung3.Member.Member;
+
 public class MemberView {
+  public static void dumb(List<Member> list) {
+    for (Member m : list) {
+      System.out.println(m.toString());
+    }
+  }
 }
