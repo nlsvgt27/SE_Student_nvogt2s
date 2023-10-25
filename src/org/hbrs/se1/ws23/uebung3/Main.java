@@ -3,7 +3,7 @@ package org.hbrs.se1.ws23.uebung3;
 import org.hbrs.se1.ws23.uebung2.Member.ConcreteMember;
 import org.hbrs.se1.ws23.uebung3.Container.Container;
 
-public class MainTest {
+public class Main {
   public static void main(String[] args) {
     Container c = Container.erstelleContainer();
     for(int i = 0; i < 10; i++) {
@@ -17,7 +17,6 @@ public class MainTest {
     try {
       c.store();
       c.load();
-      c.dumb();
     } catch (Exception e) {
       System.out.println("Fehler beim speichern");
     }
