@@ -16,11 +16,12 @@ public class MainTest {
 
     try {
       c.store();
-      //c.load();
+      c.load();
+      c.dumb();
     } catch (Exception e) {
       System.out.println("Fehler beim speichern");
     }
-    c.dumb();
+
 
 
   }
