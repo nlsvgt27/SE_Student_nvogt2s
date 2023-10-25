@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Container {
   ArrayList<Member> list;
-
+  PersistenceStrategy<Member> strategy;
   //Aufgabe 3.2
   //Erstellung eines Statischen Container Objekts in der Klasse selber
   private static Container container;
