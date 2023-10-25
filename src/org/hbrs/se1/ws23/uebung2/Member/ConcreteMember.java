@@ -1,6 +1,7 @@
 package org.hbrs.se1.ws23.uebung2.Member;
+import java.io.*;
 
-public class ConcreteMember implements Member {
+public class ConcreteMember implements Member, Serializable{
   Integer id;
   public ConcreteMember(Integer id) {
     this.id = id;

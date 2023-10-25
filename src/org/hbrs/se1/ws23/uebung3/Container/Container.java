@@ -3,10 +3,7 @@ package org.hbrs.se1.ws23.uebung3.Container;
 import org.hbrs.se1.ws23.uebung2.Member.Member;
 import org.hbrs.se1.ws23.uebung3.persistence.*;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,6 +59,8 @@ public class Container {
   public void store() throws PersistenceException {
     try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("src\\org\\hbrs\\se1\\ws23\\uebung3\\data.txt"))){
       out.writeObject(list);
+      out.flush();
+      out.close();
     } catch (Exception e) {
       throw new PersistenceException(PersistenceException.ExceptionType.NO_FILE_FOUND, "Fehler beim abspeichern");
     }
@@ -70,6 +69,7 @@ public class Container {
   public void load() throws PersistenceException {
     try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("src\\org\\hbrs\\se1\\ws23\\uebung3\\data.txt"))){
       list = (ArrayList<Member>) in.readObject();
+      in.close();
     } catch (Exception e) {
       throw new PersistenceException(PersistenceException.ExceptionType.NO_FILE_FOUND, "Fehler beim abspeichern");
     }
