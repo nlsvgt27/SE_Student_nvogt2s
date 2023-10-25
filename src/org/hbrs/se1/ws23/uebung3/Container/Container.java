@@ -1,11 +1,32 @@
 package org.hbrs.se1.ws23.uebung3.Container;
 
 import org.hbrs.se1.ws23.uebung2.Member.Member;
+import org.hbrs.se1.ws23.uebung3.persistence.*;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Container {
-  ArrayList<Member> list = new ArrayList<>();
+  ArrayList<Member> list;
+
+  //Aufgabe 3.2
+  //Erstellung eines Statischen Container Objekts in der Klasse selber
+  private static Container container;
+  private Container() {
+    list = new ArrayList<>();
+  }
+  //Prüfen ob schon ein Objekt existiert. Wenn nicht dann wird ein neues erstellt
+  public static Container erstelleContainer() {
+    if (container == null) {
+      container = new Container();
+    }
+    return container;
+  }
+  //--------------------------------------------------------------------------
 
   public int size() {
     return list.size();
@@ -37,4 +58,22 @@ public class Container {
     }
   }
 
+  //Aufgabe 3.2 weiter
+  public void store() throws PersistenceException {
+    try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("data.txt"))){
+      for (Member el : list)
+      out.writeObject(el);
+      out.writeUTF("\n");
+    } catch (Exception e) {
+      throw new PersistenceException(PersistenceException.ExceptionType.NO_FILE_FOUND, "Fehler beim abspeichern");
+    }
+  }
+
+  public void load() throws PersistenceException {
+    try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("data.txt"))){
+      list = (ArrayList<Member>) in.readObject();
+    } catch (Exception e) {
+      throw new PersistenceException(PersistenceException.ExceptionType.NO_FILE_FOUND, "Fehler beim abspeichern");
+    }
+  }
 }
