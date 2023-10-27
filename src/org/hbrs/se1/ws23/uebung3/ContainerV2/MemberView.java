@@ -1,4 +1,4 @@
-package org.hbrs.se1.ws23.uebung3.Container;
+package org.hbrs.se1.ws23.uebung3.ContainerV2;
 
 import java.util.List;
 import org.hbrs.se1.ws23.uebung2.Member.Member;

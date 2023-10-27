@@ -1,7 +1,7 @@
 package org.hbrs.se1.ws23.uebung3;
 
 import org.hbrs.se1.ws23.uebung2.Member.ConcreteMember;
-import org.hbrs.se1.ws23.uebung3.Container.Container;
+import org.hbrs.se1.ws23.uebung3.ContainerV2.Container;
 
 public class Main {
   public static void main(String[] args) {
