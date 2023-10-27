@@ -67,4 +67,11 @@ public class Container {
   public List<Member> getCurrentList() {
     return list;
   }
+
+  //Methode zum Löschen aller Member
+  public void deleteAll() {
+    while (size() > 0) {
+      list.remove(0);
+    }
+  }
 }
