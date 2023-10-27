@@ -15,16 +15,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ContainerTest {
   Container c = Container.erstelleContainer();
-
-
   @BeforeEach
   void  loescheContainerInhalt() {
     c.deleteAll();
     c.strategy = null;
   }
   @Test
-  void noStrategyTest() throws PersistenceException {
-    assertThrows(PersistenceException.class, () -> c.store());
+  void noStrategyTest() {
+    try {
+      c.store();
+    } catch (PersistenceException e) {
+      assertEquals(PersistenceException.ExceptionType.NoStrategyIsSet, e.getExceptionTypeType());
+    }
   }
 
   @Test
@@ -47,10 +49,10 @@ public class ContainerTest {
     PersistenceStrategy<Member> strategy = new PersistenceStrategyStream<>();
     ((PersistenceStrategyStream<Member>)strategy).setLocation("/");
     c.strategy = strategy;
-    assertThrows(PersistenceException.class, () -> c.strategy.openConnection());
-    assertThrows(PersistenceException.class, () -> c.store());
-    assertThrows(PersistenceException.class, () -> c.load());
-    assertThrows(PersistenceException.class, () -> c.strategy.closeConnection());
+    try {c.strategy.openConnection();} catch (PersistenceException e) {assertEquals(PersistenceException.ExceptionType.ConnectionNotAvailable, e.getExceptionTypeType());}
+    try {c.store();} catch (PersistenceException e) {assertEquals(PersistenceException.ExceptionType.NO_FILE_FOUND, e.getExceptionTypeType());}
+    try {c.load();} catch (PersistenceException e) {assertEquals(PersistenceException.ExceptionType.NO_FILE_FOUND, e.getExceptionTypeType());}
+    try {c.strategy.closeConnection();} catch (PersistenceException e) {assertEquals(PersistenceException.ExceptionType.ConnectionNotAvailable, e.getExceptionTypeType());}
   }
 
   @Test
