@@ -9,8 +9,9 @@ import java.util.List;
 
 public class Container {
   ArrayList<Member> list;
+
   //Aufgabe 3.2
-  PersistenceStrategy<Member> strategy;
+  public PersistenceStrategy<Member> strategy;
   //Erstellung eines Statischen Container Objekts in der Klasse selber
   private static Container container;
   private Container() {
@@ -51,22 +52,17 @@ public class Container {
 
   //Aufgabe 3.2 weiter
   public void store() throws PersistenceException {
-    try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("src\\org\\hbrs\\se1\\ws23\\uebung3\\data.txt"))){
-      out.writeObject(list);
-      out.flush();
-      out.close();
-    } catch (Exception e) {
-      throw new PersistenceException(PersistenceException.ExceptionType.NO_FILE_FOUND, "Fehler beim abspeichern");
+    if (strategy == null) {
+      throw new PersistenceException(PersistenceException.ExceptionType.NoStrategyIsSet, "Keine Strategie gesetzt");
     }
+    strategy.save(list);
   }
 
   public void load() throws PersistenceException {
-    try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("src\\org\\hbrs\\se1\\ws23\\uebung3\\data.txt"))){
-      list = (ArrayList<Member>) in.readObject();
-      in.close();
-    } catch (Exception e) {
-      throw new PersistenceException(PersistenceException.ExceptionType.NO_FILE_FOUND, "Fehler beim abspeichern");
+    if (strategy == null) {
+      throw new PersistenceException(PersistenceException.ExceptionType.NoStrategyIsSet, "Keine Strategie gesetzt");
     }
+    list = (ArrayList<Member>) strategy.load();
   }
 
   public List<Member> getCurrentList() {
