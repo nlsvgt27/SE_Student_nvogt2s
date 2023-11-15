@@ -1,8 +1,9 @@
 package org.hbrs.se1.ws23.uebung4.prototype;
 
+import org.hbrs.se1.ws23.uebung4.UserStorys.UserStory;
+
 import java.io.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /*
  * Klasse zum Management sowie zur Eingabe unnd Ausgabe von User-Stories.

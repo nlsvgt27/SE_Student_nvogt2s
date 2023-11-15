@@ -1,4 +1,4 @@
-package org.hbrs.se1.ws23.uebung4.prototype;
+package org.hbrs.se1.ws23.uebung4.UserStorys;
     public class UserStory {
         // ToDo: Sind die Attribute der Klasse UserStory vollständig? (F4)
 
