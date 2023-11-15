@@ -87,14 +87,14 @@ public class UserStory implements Serializable {
         }
 
         public String toString() {
-            return "ID: " + id + "\t" +
-                "Beschreibung: " + beschreibung + "\t" +
-                "Akzeptanzkriterium: " + akzeptanzkriterium + "\t" +
-                "Mehrwert: " + mehrwert + "\t" +
-                "Strafe: " + strafe + "\t" +
-                "Aufwand: " + aufwand + "\t" +
-                "Risk: " + risk + "\t" +
-                "Prio: " + prio + "\t" +
+            return "ID: " + id + "//\t" +
+                "Beschreibung: " + beschreibung + "//\t" +
+                "Akzeptanzkriterium: " + akzeptanzkriterium + "//\t" +
+                "Mehrwert: " + mehrwert + "//\t" +
+                "Strafe: " + strafe + "//\t" +
+                "Aufwand: " + aufwand + "//\t" +
+                "Risk: " + risk + "//\t" +
+                "Prio: " + prio + "//\t" +
                 "Project: " + project;
 
         }

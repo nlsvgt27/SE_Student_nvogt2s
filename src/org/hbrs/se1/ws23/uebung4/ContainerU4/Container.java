@@ -8,6 +8,7 @@ import org.hbrs.se1.ws23.uebung4.persistenceU4.PersistenceStrategyStream;
 
 import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -67,15 +68,6 @@ public class Container<T extends UserStory> {
   }
 
   public List<T> getCurrentList() {
-    return list;
-  }
-  public List<T> getUserStorysFromProject(String projekt) {
-    List<T> list = new ArrayList<>();
-    for (int i = 0; i < list.size(); i++) {
-      if(list.get(i).getProject().equals(projekt)) {
-        list.add(list.get(i));
-      }
-    }
     return list;
   }
   //Methode zum Löschen aller Member
@@ -144,16 +136,9 @@ public class Container<T extends UserStory> {
    * Diese Methode realisiert die Ausgabe.
    */
   public void startAusgabe() {
-
-    // Hier möchte Herr P. die Liste mit einem eigenen Sortieralgorithmus sortieren und dann
-    // ausgeben. Allerdings weiss der Student hier nicht weiter
-
-    // [Sortierung ausgelassen]
-    // Todo: Implementierung Sortierung (F4)
-
-    // Klassische Ausgabe ueber eine For-Each-Schleife
-    for (UserStory story : list) {
-      System.out.println(story.toString());
+    list.sort(Comparator.comparing(UserStory::getPrio));
+    for (int i = size()-1; i >= 0; i--) {
+      System.out.println(list.get(i));
     }
 
     // [Variante mit forEach-Methode / Streams (--> Kapitel 9, Lösung Übung Nr. 2)?
@@ -204,7 +189,7 @@ public class Container<T extends UserStory> {
       System.out.print("Akzeptanzkriterium: ");
       String akzeptanzkriterium = sc.nextLine();
 
-      System.out.print("Mehrwert: [1...5]");
+      System.out.print("Mehrwert [1...5]: ");
       int mehrwert = sc.nextInt();
       if (mehrwert < 0 || mehrwert > 5) {
         throw new IllegalArgumentException();
@@ -225,14 +210,14 @@ public class Container<T extends UserStory> {
       }
       sc.nextLine();
 
-      System.out.print("Risk: [1...5]");
+      System.out.print("Risk [1...5]: ");
       int risk = sc.nextInt();
       if (risk < 0 || risk > 5) {
         throw new IllegalArgumentException();
       }
       sc.nextLine();
 
-      double prio = (mehrwert + strafe)/(aufwand+risk);
+      double prio = (double)((mehrwert + strafe)/(aufwand+risk));
       System.out.print("Project: ");
       String project = sc.nextLine();
 
@@ -247,9 +232,6 @@ public class Container<T extends UserStory> {
     }
 
   }
-  public void search() {
-
-  }
 
   public static void main (String[] args) throws Exception {
     Container con = Container.erstelleContainer();
@@ -257,6 +239,5 @@ public class Container<T extends UserStory> {
     ((PersistenceStrategySaveOneByOne<UserStory>)strategy).setLocation("src/org/hbrs/se1/ws23/uebung4/UserStorys/testdata.ver");
     con.strategy = strategy;
     con.startEingabe();
-
   }
 }
