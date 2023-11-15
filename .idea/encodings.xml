@@ -3,5 +3,6 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/src/org/hbrs/se1/ws23/uebung3/data.txt" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/test/org/hbrs/se1/ws23/uebung3/test/testdata.ver" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/test/org/hbrs/se1/ws23/uebung4/test/testdata.ver" charset="ISO-8859-1" />
   </component>
 </project>

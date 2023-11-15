@@ -3,6 +3,8 @@ package org.hbrs.se1.ws23.uebung4.ContainerU4;
 import org.hbrs.se1.ws23.uebung4.UserStorys.UserStory;
 import org.hbrs.se1.ws23.uebung4.persistenceU4.PersistenceException;
 import org.hbrs.se1.ws23.uebung4.persistenceU4.PersistenceStrategy;
+import org.hbrs.se1.ws23.uebung4.persistenceU4.PersistenceStrategySaveOneByOne;
+import org.hbrs.se1.ws23.uebung4.persistenceU4.PersistenceStrategyStream;
 
 import java.sql.SQLOutput;
 import java.util.ArrayList;
@@ -60,32 +62,28 @@ public class Container<T extends UserStory> {
     if (strategy == null) {
       throw new PersistenceException(PersistenceException.ExceptionType.NoStrategyIsSet, "Keine Strategie gesetzt");
     }
+
     list = (ArrayList<T>) strategy.load();
   }
 
   public List<T> getCurrentList() {
     return list;
   }
-
+  public List<T> getUserStorysFromProject(String projekt) {
+    List<T> list = new ArrayList<>();
+    for (int i = 0; i < list.size(); i++) {
+      if(list.get(i).getProject().equals(projekt)) {
+        list.add(list.get(i));
+      }
+    }
+    return list;
+  }
   //Methode zum Löschen aller Member
   public void deleteAll() {
     while (size() > 0) {
       list.remove(0);
     }
   }
-
-  public void dumb() {
-    List<Integer> newListe2 = new ArrayList<Integer>();
-    for ( T p : list ) {
-      if (p.getId() > 20 && p.getId()<1000 ) {
-        newListe2.add(p.getId());
-      }
-    }
-    System.out.println(newListe2);
-  }
-
-
-
   /*
    * Diese Methode realisiert eine Eingabe ueber einen Scanner
    * Alle Exceptions werden an den aufrufenden Context (hier: main) weitergegeben (throws)
@@ -111,16 +109,7 @@ public class Container<T extends UserStory> {
 
       // 	Falls 'help' eingegeben wurde, werden alle Befehle ausgedruckt
       if ( strings[0].equals("help") ) {
-        System.out.println("Folgende Befehle stehen zur Verfuegung:");
-        System.out.println("help: Auflistung aller Befehle");
-        System.out.println("dumb: Auflistung aller UserStorys");
-        System.out.println("enter: [UserStory] eingabe einer UserStory");
-        System.out.println("store: Speicherung der UserStorys");
-        System.out.println("load: Laden der bereits gespeicherten UserStorys in das Programm");
-        System.out.println("exit: Verlassen des Programms");
-        System.out.println("search: Suche nach UserStorys, die zu einem Projekt gehören");
-
-
+        help();
       }
       // Auswahl der bisher implementierten Befehle:
       if ( strings[0].equals("dump") ) {
@@ -128,27 +117,24 @@ public class Container<T extends UserStory> {
       }
       // Auswahl der bisher implementierten Befehle:
       if ( strings[0].equals("enter") ) {
-        // Daten einlesen ...
-        // this.addUserStory( new UserStory( data ) ) um das Objekt in die Liste einzufügen.
+        enter(scanner);
       }
       if (  strings[0].equals("store")  ) {
-        // Beispiel-Code
-        UserStory userStory = new UserStory();
-        userStory.setId(22);
-        this.addUserStory((T) userStory);
-        this.store();
+        store();
       }
       if ( strings[0].equals("load") ) {
-
+        load();
       }
       if ( strings[0].equals("exit") ) {
-
+        scanner.close();
+        break;
       }
       if ( strings[0].equals("search") ) {
-
+          String project = strings[1];
+          getUserStorysFromProject(project);
       }
-      break;
     } // Ende der Schleife
+
   }
 
   /**
@@ -179,4 +165,76 @@ public class Container<T extends UserStory> {
    * inklusive ihrer gespeicherten UserStory-Objekte gespeichert.
    *
    */
+
+  public void help() {
+    System.out.println("Folgende Befehle stehen zur Verfuegung:");
+    System.out.println("help: Auflistung aller Befehle");
+    System.out.println("dumb: Auflistung aller UserStorys");
+    System.out.println("enter: [UserStory] eingabe einer UserStory");
+    System.out.println("store: Speicherung der UserStorys");
+    System.out.println("load: Laden der bereits gespeicherten UserStorys in das Programm");
+    System.out.println("exit: Verlassen des Programms");
+    System.out.println("search: Suche nach UserStorys, die zu einem Projekt gehören");
+  }
+  //--------------------------------------------------
+  public void dump() {
+    //Noch nicht fertig
+    List<Integer> newListe = new ArrayList<Integer>();
+    for ( T p : list ) {
+      if (p.getId() > 20 && p.getId()<1000 ) {
+        newListe.add(p.getId());
+      }
+    }
+    System.out.println(newListe);
+  }
+  //--------------------------------------------------
+
+  public void enter(Scanner sc) {
+    try {
+      System.out.print("UserStoryID: ");
+      int id = sc.nextInt();
+      sc.nextLine();
+      System.out.print("Beschreibung: ");
+      String beschreibung = sc.nextLine();
+      System.out.print("Akzeptanzkriterium: ");
+      String akzeptanzkriterium = sc.nextLine();
+      System.out.print("Mehrwert: ");
+      int mehrwert = sc.nextInt();
+      sc.nextLine();
+      System.out.print("Strafe: ");
+      int strafe = sc.nextInt();
+      sc.nextLine();
+      System.out.print("Aufwand: ");
+      int aufwand = sc.nextInt();
+      sc.nextLine();
+      System.out.print("Risk: ");
+      int risk = sc.nextInt();
+      sc.nextLine();
+      double prio = (mehrwert + strafe)/(aufwand+risk);
+      System.out.print("Project: ");
+      String project = sc.nextLine();
+
+      UserStory userStory = new UserStory(id, beschreibung, akzeptanzkriterium, mehrwert, strafe, aufwand, risk, prio);
+      userStory.setProject(project);
+
+      addUserStory((T) userStory);
+    } catch (ContainerException e) {
+      e.printStackTrace();
+    } catch (Exception e) {
+      System.out.println("Eingabe war falsch");
+    }
+
+  }
+  public void search() {
+
+  }
+
+  public static void main (String[] args) throws Exception {
+    Container con = Container.erstelleContainer();
+    PersistenceStrategy<UserStory> strategy = new PersistenceStrategySaveOneByOne<>();
+    ((PersistenceStrategySaveOneByOne<UserStory>)strategy).setLocation("test/org/hbrs/se1/ws23/uebung4/test/testdata.ver");
+    con.strategy = strategy;
+    con.startEingabe();
+
+  }
 }

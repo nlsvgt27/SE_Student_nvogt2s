@@ -26,6 +26,7 @@ public class PersistenceException extends Exception {
         NoStrategyIsSet,
         SaveFailure,
         LoadFailure,
-        ClosingFailure
+        ClosingFailure,
+        NO_FILE_FOUND
     }
 }

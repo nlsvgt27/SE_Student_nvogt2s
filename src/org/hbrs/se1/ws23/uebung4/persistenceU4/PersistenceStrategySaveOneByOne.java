@@ -1,15 +1,12 @@
 package org.hbrs.se1.ws23.uebung4.persistenceU4;
 
-import org.hbrs.se1.ws23.uebung4.persistenceU4.PersistenceException;
-import org.hbrs.se1.ws23.uebung4.persistenceU4.PersistenceStrategy;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
 
-public class PersistenceStrategyStream<E> implements PersistenceStrategy<E> {
+public class PersistenceStrategySaveOneByOne<E> implements PersistenceStrategy<E> {
 
     // URL of file, in which the objects are stored
     private String location = "objects.ser";
@@ -57,10 +54,12 @@ public class PersistenceStrategyStream<E> implements PersistenceStrategy<E> {
      */
     public void save(List<E> member) throws PersistenceException {
         try {
+            fos = new FileOutputStream(location);
             ObjectOutputStream out = new ObjectOutputStream(fos);
             out.writeObject(member);
             out.flush();
             out.close();
+            fos.close();
         } catch (Exception e) {
             throw new PersistenceException(PersistenceException.ExceptionType.NO_FILE_FOUND, "Fehler beim abspeichern");
         }
@@ -74,13 +73,17 @@ public class PersistenceStrategyStream<E> implements PersistenceStrategy<E> {
      */
     public List<E> load() throws PersistenceException {
         try {
+            fis = new FileInputStream(location);
             ObjectInputStream ois = new ObjectInputStream(fis);
             Object obj = ois.readObject();
+            ois.close();
+            fis.close();
             if (obj instanceof List<?>) {
                 return (List<E>)obj;
             } else {
                 throw new PersistenceException(PersistenceException.ExceptionType.ImplementationNotAvailable, "Objekt in der Datei ist keine Liste");
             }
+
 
         } catch (Exception e) {
             throw new PersistenceException(PersistenceException.ExceptionType.NO_FILE_FOUND, "Fehler beim laden");

@@ -1,8 +1,12 @@
 package org.hbrs.se1.ws23.uebung4.UserStorys;
-    public class UserStory {
-        // ToDo: Sind die Attribute der Klasse UserStory vollständig? (F4)
 
-        String titel;
+import java.io.Serializable;
+
+public class UserStory implements Serializable {
+
+
+        String beschreibung;
+        String akzeptanzkriterium;
         int aufwand = 0;
         int id = 0;
         int mehrwert = 0;
@@ -22,10 +26,11 @@ package org.hbrs.se1.ws23.uebung4.UserStorys;
 
 
 
-        public UserStory(int id, String titel, int mehrwert, int strafe,
+        public UserStory(int id, String beschreibung, String akzeptanzkriterium, int mehrwert, int strafe,
                          int aufwand, int risk, double prio) {
             this.id = id;
-            this.titel = titel;
+            this.beschreibung = beschreibung;
+            this.akzeptanzkriterium = akzeptanzkriterium;
             this.mehrwert = mehrwert;
             this.strafe = strafe;
             this.aufwand = aufwand;
@@ -45,10 +50,10 @@ package org.hbrs.se1.ws23.uebung4.UserStorys;
         }
 
         public String getTitel() {
-            return titel;
+            return beschreibung;
         }
         public void setTitel(String titel) {
-            this.titel = titel;
+            this.beschreibung = titel;
         }
         public int getAufwand() {
             return aufwand;
@@ -81,5 +86,17 @@ package org.hbrs.se1.ws23.uebung4.UserStorys;
             this.strafe = strafe;
         }
 
+        public String toString() {
+            return "ID: " + id + "\n" +
+                "Beschreibung: " + beschreibung + "\n" +
+                "Akzeptanzkriterium: " + akzeptanzkriterium + "\n" +
+                "Mehrwert: " + mehrwert + "\n" +
+                "Strafe: " + strafe + "\n" +
+                "Aufwand: " + aufwand + "\n" +
+                "Risk: " + risk + "\n" +
+                "Prio: " + prio + "\n" +
+                "Project: " + project;
+
+        }
      }
 
