@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Container<T extends UserStory> {
   ArrayList<T> list;
@@ -133,11 +134,10 @@ public class Container<T extends UserStory> {
    * Diese Methode realisiert die Ausgabe.
    */
   public void startAusgabe() {
-    list.sort(Comparator.comparing(UserStory::getPrio));
-    for (int i = size()-1; i >= 0; i--) {
-      System.out.println(list.get(i));
-    }
-
+    list.sort(Comparator.comparing(UserStory::getPrio).reversed());
+    for (UserStory u : list) {
+      System.out.println(u);
+    };
     // [Variante mit forEach-Methode / Streams (--> Kapitel 9, Lösung Übung Nr. 2)?
     //  Gerne auch mit Beachtung der neuen US1
     // (Filterung Projekt = "ein Wert (z.B. Coll@HBRS)" und Risiko >=5
@@ -161,18 +161,6 @@ public class Container<T extends UserStory> {
     System.out.println("exit: Verlassen des Programms");
     System.out.println("search: Suche nach UserStorys, die zu einem Projekt gehören");
   }
-  //--------------------------------------------------
-  public void dump() {
-    //Noch nicht fertig
-    List<Integer> newListe = new ArrayList<Integer>();
-    for ( T p : list ) {
-      if (p.getId() > 20 && p.getId()<1000 ) {
-        newListe.add(p.getId());
-      }
-    }
-    System.out.println(newListe);
-  }
-  //--------------------------------------------------
 
   public void enter(Scanner sc) {
     try {
