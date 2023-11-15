@@ -83,9 +83,6 @@ public class Container<T extends UserStory> {
    */
   public void startEingabe() throws ContainerException, Exception {
     String strInput = null;
-
-    // Initialisierung des Eingabe-View
-    // ToDo: Funktionsweise des Scanners erklären (F3)
     Scanner scanner = new Scanner( System.in );
 
     while ( true ) {
