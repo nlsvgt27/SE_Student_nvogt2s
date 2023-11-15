@@ -130,8 +130,11 @@ public class Container<T extends UserStory> {
         break;
       }
       if ( strings[0].equals("search") ) {
-          String project = strings[1];
-          getUserStorysFromProject(project);
+        for (T e: list) {
+          if(e.getProject().equals(strings[1])) {
+            System.out.println(e);
+          }
+        }
       }
     } // Ende der Schleife
 
@@ -194,22 +197,41 @@ public class Container<T extends UserStory> {
       System.out.print("UserStoryID: ");
       int id = sc.nextInt();
       sc.nextLine();
+
       System.out.print("Beschreibung: ");
       String beschreibung = sc.nextLine();
+
       System.out.print("Akzeptanzkriterium: ");
       String akzeptanzkriterium = sc.nextLine();
-      System.out.print("Mehrwert: ");
+
+      System.out.print("Mehrwert: [1...5]");
       int mehrwert = sc.nextInt();
+      if (mehrwert < 0 || mehrwert > 5) {
+        throw new IllegalArgumentException();
+      }
       sc.nextLine();
-      System.out.print("Strafe: ");
+
+      System.out.print("Strafe [1...5]: ");
       int strafe = sc.nextInt();
+      if (strafe < 0 || strafe > 5) {
+        throw new IllegalArgumentException();
+      }
       sc.nextLine();
-      System.out.print("Aufwand: ");
+
+      System.out.print("Aufwand [1...n]: ");
       int aufwand = sc.nextInt();
+      if (aufwand < 0) {
+        throw new IllegalArgumentException();
+      }
       sc.nextLine();
-      System.out.print("Risk: ");
+
+      System.out.print("Risk: [1...5]");
       int risk = sc.nextInt();
+      if (risk < 0 || risk > 5) {
+        throw new IllegalArgumentException();
+      }
       sc.nextLine();
+
       double prio = (mehrwert + strafe)/(aufwand+risk);
       System.out.print("Project: ");
       String project = sc.nextLine();
@@ -232,7 +254,7 @@ public class Container<T extends UserStory> {
   public static void main (String[] args) throws Exception {
     Container con = Container.erstelleContainer();
     PersistenceStrategy<UserStory> strategy = new PersistenceStrategySaveOneByOne<>();
-    ((PersistenceStrategySaveOneByOne<UserStory>)strategy).setLocation("test/org/hbrs/se1/ws23/uebung4/test/testdata.ver");
+    ((PersistenceStrategySaveOneByOne<UserStory>)strategy).setLocation("src/org/hbrs/se1/ws23/uebung4/UserStorys/testdata.ver");
     con.strategy = strategy;
     con.startEingabe();
 
