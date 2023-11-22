@@ -1,4 +1,4 @@
-package org.hbrs.se1.ws23.uebung4.prototype.improvements.controller;
+package org.hbrs.se1.ws23.uebung4.prototype.improvements.model;
 
 import java.io.Serializable;
 
@@ -98,5 +98,18 @@ import java.io.Serializable;
             else return -1;
         }
 
+        @Override
+        public String toString() {
+            return "UserStory{" +
+                    "titel='" + titel + '\'' +
+                    ", aufwand=" + aufwand +
+                    ", id=" + id +
+                    ", mehrwert=" + mehrwert +
+                    ", risk=" + risk +
+                    ", strafe=" + strafe +
+                    ", prio=" + prio +
+                    ", project='" + project + '\'' +
+                    '}';
+        }
     }
 

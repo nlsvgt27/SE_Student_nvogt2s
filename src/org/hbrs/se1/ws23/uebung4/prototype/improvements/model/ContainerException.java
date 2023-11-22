@@ -1,4 +1,4 @@
-package org.hbrs.se1.ws23.uebung4.prototype.improvements.controller;
+package org.hbrs.se1.ws23.uebung4.prototype.improvements.model;
 
 public class ContainerException extends Exception {
 	
