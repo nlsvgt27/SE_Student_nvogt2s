@@ -22,20 +22,16 @@ public class PersistenceStrategyStream<E> implements PersistenceStrategy<E> {
 
     @Override
     /**
-     * Used only for openining a connection for storing objects
-     * Exception occurs in some SDKs, when both are created (TODO!)
-     * Workaround: open the Streams in the load method
+     * Used only for openining a reading connection for storing objects
      */
-    public void openConnection() throws PersistenceException {
+    public void openReadConnection() throws PersistenceException {
         try {
-            fos = new FileOutputStream( LOCATION );
             fis = new FileInputStream( LOCATION );
         } catch (FileNotFoundException e) {
             throw new PersistenceException( PersistenceException.ExceptionType.ConnectionNotAvailable
             , "Error in opening the connection, File could not be found");
         }
         try {
-            oos = new ObjectOutputStream( fos );
             ois = new ObjectInputStream(  fis  );
         } catch (IOException e) {
             throw new PersistenceException( PersistenceException.ExceptionType.ConnectionNotAvailable
@@ -44,18 +40,47 @@ public class PersistenceStrategyStream<E> implements PersistenceStrategy<E> {
     }
 
     @Override
-    public void closeConnection() throws PersistenceException {
+    /**
+     * Used only for openining a writing connection for storing objects
+     * Only open a write-connection, if you will definitely write to the file!
+     * In some more recent versions of java, opening a FileOutputStream clears the files content.
+     */
+    public void openWriteConnection() throws PersistenceException {
         try {
-            // Closing the outputstreams for storing
-            if (oos != null) oos.close();
-            if (fos != null) fos.close();
+            fos = new FileOutputStream( LOCATION );
+        } catch (FileNotFoundException e) {
+            throw new PersistenceException( PersistenceException.ExceptionType.ConnectionNotAvailable
+                    , "Error in opening the connection, File could not be found");
+        }
+        try {
+            oos = new ObjectOutputStream( fos );
+        } catch (IOException e) {
+            throw new PersistenceException( PersistenceException.ExceptionType.ConnectionNotAvailable
+                    , "Error in opening the connection, problems with the stream");
+        }
+    }
 
+    @Override
+    public void closeReadConnection() throws PersistenceException {
+        try {
             // Closing the inputstreams for loading
             if (ois != null) ois.close();
             if (fis != null) fis.close();
         } catch( IOException e ) {
             // Lazy solution: catching the exception of any closing activity ;-)
-            throw new PersistenceException(PersistenceException.ExceptionType.ClosingFailure , "error while closing connections");
+            throw new PersistenceException(PersistenceException.ExceptionType.ClosingFailure , "error while closing read connection");
+        }
+    }
+
+    @Override
+    public void closeWriteConnection() throws PersistenceException {
+        try {
+            // Closing the outputstreams for storing
+            if (oos != null) oos.close();
+            if (fos != null) fos.close();
+        } catch( IOException e ) {
+            // Lazy solution: catching the exception of any closing activity ;-)
+            throw new PersistenceException(PersistenceException.ExceptionType.ClosingFailure , "error while closing write connection");
         }
     }
 
