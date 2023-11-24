@@ -1,8 +1,10 @@
-package org.hbrs.se1.ws23.uebung4.prototype.improvements.controller;
+package org.hbrs.se1.ws23.uebung4.prototype.improvements.model;
 
 import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import org.hbrs.se1.ws23.uebung4.prototype.improvements.model.UserStory;
 
 /*
  * Klasse zum Management sowie zur Eingabe unnd Ausgabe von User-Stories.
@@ -59,90 +61,13 @@ public class Container {
 	}
 	
 	/**
-	 * Start-Methoden zum Starten des Programms 
-	 * (hier koennen ggf. weitere Initialisierungsarbeiten gemacht werden spaeter)
-	 */
-	public static void main (String[] args) throws Exception {
-		Container con = Container.getInstance();
-		con.startEingabe(); 
-	}
-	
-	/*
-	 * Diese Methode realisiert eine Eingabe ueber einen Scanner
-	 * Alle Exceptions werden an den aufrufenden Context (hier: main) weitergegeben (throws)
-	 * Das entlastet den Entwickler zur Entwicklungszeit und den Endanwender zur Laufzeit
-	 */
-	public void startEingabe() throws ContainerException, Exception {
-		String strInput = null;
-		
-		// Initialisierung des Eingabe-View
-		Scanner scanner = new Scanner( System.in );
-
-		while ( true ) {
-			// Ausgabe eines Texts zur Begruessung
-			System.out.println("UserStory-Tool V1.0 by Julius P. (dedicated to all my friends)");
-
-			System.out.print( "> "  );
-			strInput = scanner.nextLine();
-		
-			// Extrahiert ein Array aus der Eingabe
-			String[] strings = strInput.split(" ");
-
-			// 	Falls 'help' eingegeben wurde, werden alle Befehle ausgedruckt
-			if ( strings[0].equals("help") ) {
-				System.out.println("Folgende Befehle stehen zur Verfuegung: help, dump....");
-			}
-			// Auswahl der bisher implementierten Befehle:
-			if ( strings[0].equals("dump") ) {
-				startAusgabe();
-			}
-			// Auswahl der bisher implementierten Befehle:
-			if ( strings[0].equals("enter") ) {
-				// Daten einlesen ...
-				// this.addUserStory( new UserStory( data ) ) um das Objekt in die Liste einzufügen.
-			}
-								
-			if (  strings[0].equals("store")  ) {
-				// Beispiel-Code
-				UserStory userStory = new UserStory();
-				userStory.setId(22);
-				this.addUserStory( userStory );
-				this.store();
-			}
-		} // Ende der Schleife
-	}
-
-	/**
-	 * Diese Methode realisiert die Ausgabe.
-	 */
-	public void startAusgabe() {
-
-		// Hier möchte Herr P. die Liste mit einem eigenen Sortieralgorithmus sortieren und dann
-		// ausgeben. Allerdings weiss der Student hier nicht weiter
-
-		// [Sortierung ausgelassen]
-		Collections.sort( this.liste );
-
-		// Klassische Ausgabe ueber eine For-Each-Schleife
-		for (UserStory story : liste) {
-			System.out.println(story.toString());
-		}
-
-		// [Variante mit forEach-Methode / Streams (--> Kapitel 9, Lösung Übung Nr. 2)?
-		//  Gerne auch mit Beachtung der neuen US1
-		// (Filterung Projekt = "ein Wert (z.B. Coll@HBRS)" und Risiko >=5
-		List<UserStory> reduzierteListe = this.liste.stream()
-				.filter( story -> story.getProject().equals("Coll@HBRS") )
-				.filter(  story -> story.getRisk()  >= 5 )
-				.collect( Collectors.toList() );
-	}
 
 	/*
 	 * Methode zum Speichern der Liste. Es wird die komplette Liste
 	 * inklusive ihrer gespeicherten UserStory-Objekte gespeichert.
 	 * 
 	 */
-	private void store() throws ContainerException {
+	public void store() throws ContainerException {
 		ObjectOutputStream oos = null;
 		FileOutputStream fos = null;
 		try {
@@ -196,7 +121,7 @@ public class Container {
 	 * @param userStory
 	 * @throws ContainerException
 	 */
-	public void addUserStory ( UserStory userStory ) throws ContainerException {
+	public void addUserStory ( UserStory  userStory ) throws ContainerException {
 		if ( contains(userStory) == true ) {
 			ContainerException ex = new ContainerException("ID bereits vorhanden!");
 			throw ex;
