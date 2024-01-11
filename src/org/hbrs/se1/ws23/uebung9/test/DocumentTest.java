@@ -31,10 +31,16 @@ public class DocumentTest {
   }
 
   @Test
-  public void testeEinzelenDocuments() {
+  public void testeBytesMethoden() {
     System.out.println(((CoreDocument) tdoc).getBytes());
     System.out.println(((CoreDocument) gdoc).getBytes());
     System.out.println(((ComplexDocument) cdoc).getTotalBytes());
+
+    ComplexDocument cdoc2 = new ComplexDocument();
+    cdoc2.addDocument(cdoc);
+    cdoc2.addDocument(cdoc);
+    System.out.println(cdoc2.getTotalBytes());
+
   }
 
   @Test
