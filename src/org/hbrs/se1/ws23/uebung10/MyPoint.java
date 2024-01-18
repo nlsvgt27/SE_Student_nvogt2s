@@ -15,4 +15,12 @@ public class MyPoint {
   public double getY() {
     return y;
   }
+@Override
+  public boolean equals(Object p) {
+    if (p instanceof MyPoint) {
+      MyPoint punkt = (MyPoint)p;
+      return Double.compare(x, punkt.getX()) == 0 & Double.compare(y, punkt.getY()) == 0;
+    }
+    return false;
+  }
 }
