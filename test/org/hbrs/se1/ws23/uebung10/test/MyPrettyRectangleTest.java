@@ -1,7 +1,11 @@
 package org.hbrs.se1.ws23.uebung10.test;
 
+import org.hbrs.se1.ws23.uebung10.BoundingBoxFactory;
+import org.hbrs.se1.ws23.uebung10.MyPoint;
+import org.hbrs.se1.ws23.uebung10.MyPrettyRectangle;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MyPrettyRectangleTest {
 
